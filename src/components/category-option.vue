@@ -1,7 +1,7 @@
 <template>
     <div class="cat-opt">
 
-    <router-link :to="{name:'Login'}" >
+    <router-link :to="{name:'Books'}" >
         <div class="d-flex opt-row p-2 col-10" >   
             <div class="option-logo" :style="generateRandomColor">
                 <i class="fa fa-book fs-5" aria-hidden="true"></i>
