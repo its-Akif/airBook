@@ -1,9 +1,10 @@
 <template>
     <div class="cat-opt">
 
-    <router-link :to="{name:'Books'}" >
+    <router-link :to="{name:'Books' , params:{category:catName}}"  >
         <div class="d-flex opt-row p-2 col-10" >   
             <div class="option-logo" :style="generateRandomColor">
+               
                 <i class="fa fa-book fs-5" aria-hidden="true"></i>
             </div>
             <div class="option-name fs-5 ms-3 pt-3">
@@ -24,7 +25,7 @@ export default{
 props:
     ['catName','randColor']
     ,
-    computed:{
+computed:{
         
     generateRandomColor()
     { 
@@ -40,7 +41,8 @@ props:
 
     //random color will be fres
     }
-    }
+    },
+
     
 }
 </script>

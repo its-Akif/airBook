@@ -35,7 +35,7 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/Login.vue"),
   },
   {
-    path: "/books",
+    path: "/books/:category",
     name: "Books",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -44,7 +44,7 @@ const routes = [
       import(/* webpackChunkName: "Books" */ "../views/Books.vue"),
   },
   {
-    path: "/desc",
+    path: "/desc/:id",
     name: "BookDescription",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
