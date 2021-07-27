@@ -3,14 +3,8 @@
     <div class="main-content">
     <h1 style="color:white;">Recomendations</h1>
     <div >
-      <category-option :catName="catname" />
-      <category-option :catName="catname" />
-      <category-option :catName="catname" />
-      <category-option :catName="catname" />
-      <category-option :catName="catname" />
-      <category-option :catName="catname" />
-      <category-option :catName="catname" />
-      <category-option :catName="catname" />
+      <category-option v-for="category in categories" :key="category.id" :catName="category.name" />
+      
       
     </div>
     </div>
@@ -28,6 +22,7 @@
 
 <script>
 import CategoryOption from '../components/category-option.vue';
+import axios from 'axios'
 // @ is an alias to /src
 
 export default {
@@ -39,12 +34,24 @@ export default {
   data()
   {
     return{
-      catname:"Social"      
+      categories:"Social"      
     }
   },
   computed:{
- 
+    
+    
   },
+  created: async function(){
+   
+    await axios.get(this.$store.state.BaseURL+"list-categories/").then(resp => {
+    console.log(resp);
+    if(resp.status == 200)
+    {
+      this.categories=resp.data;
+    }
+        });
+
+  }
 };
 </script>
 

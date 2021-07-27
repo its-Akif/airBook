@@ -1,21 +1,26 @@
 <template>
 <div class="pb-3">
-    <router-link  :to="{name:'BookDescription'}">
-        <img :src="require(`@/media/pictures/${imgName}`)" alt="book image" class="book" >
+    <router-link  :to="{name:'BookDescription' , params:{id:bookid}}">
+        <img :src=path alt="book image" class="book" >
+        
     </router-link>
 </div>    
 </template>
 
 <script>
 export default{
+    props:['bookImgPath','bookid'],
     data()
     {
-        return{
-
-                imgName:"Double Blind A Novel.jpg",
-
+    },
+    computed:{
+        path()
+        {
+            return "http://127.0.0.1:8000"+this.bookImgPath;
         }
     }
+   
+   
 }
 </script>
 

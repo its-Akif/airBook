@@ -2,8 +2,9 @@
     <div class="main pt-3">
         <h1>Books</h1>
         <div class="d-flex flex-wrap">
-            <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="i in number" :key="i">
-            <Book ></Book>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="book in booksData" :key="book.id" @bookDetails="getBookDetails">
+
+                <Book :bookImgPath="book.pic" :bookid="book.id" />
             </div>
         </div>
     </div>
@@ -19,10 +20,25 @@ components:{
 },
 data()
 {
-    return{
-        number:10,
+    
+},
+computed:{
+    booksData()
+    {
+        console.log( this.$store.state.bookdata);
+        return this.$store.state.bookdata;
     }
-}
+},
+methods:{
+    
+
+},
+created: function(){
+        console.log("axios1");
+        this.$store.dispatch('loadBooksOfCategory',this.$route.params.category);
+          
+        
+    }
 
 }
 </script>
