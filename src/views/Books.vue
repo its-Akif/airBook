@@ -13,6 +13,7 @@
 
 <script>
 import Book from "../components/Book.vue"
+import axios from "axios"
 export default {
 
 components:{
@@ -20,22 +21,35 @@ components:{
 },
 data()
 {
+    return{
+        booksData:""
+    }
     
 },
 computed:{
-    booksData()
-    {
-        console.log( this.$store.state.bookdata);
-        return this.$store.state.bookdata;
-    }
+    // booksData()
+    // {
+    //     console.log(this.$store.state.bookdata);
+    //     return this.$store.state.bookdata;
+    // }
 },
 methods:{
     
 
 },
-created: function(){
+created:async function(){
         console.log("axios1");
-        this.$store.dispatch('loadBooksOfCategory',this.$route.params.category);
+        await axios.get(this.$store.state.BaseURLLocal+"list-books/"+this.$route.params.category+"/").then(resp => {
+        console.log("Resp",resp);
+        if(resp.status == 200)
+        {
+          this.booksData=resp.data;
+        }
+        
+        
+      
+        });
+        // this.$store.dispatch('loadBooksOfCategory',this.$route.params.category);
           
         
     }

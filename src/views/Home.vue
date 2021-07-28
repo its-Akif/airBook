@@ -43,7 +43,7 @@ export default {
   },
   created: async function(){
    
-    await axios.get(this.$store.state.BaseURL+"list-categories/").then(resp => {
+    await axios.get(this.$store.state.BaseURLLocal+"list-categories/").then(resp => {
     console.log(resp);
     if(resp.status == 200)
     {

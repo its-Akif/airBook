@@ -9,10 +9,10 @@
                         <a href="javascript:void(0)" @click="addToread"> <i class="fa fa-book  px-2 "  :class="{golden:bookDetails.read}" aria-hidden="true"></i> <p class="fs-8"> Read </p> </a> 
                         </div>
                         <div class="col-4">
-                            <a href="javascript:void(0)" @click="addToread"><i class="fa fa-book px-3 " :class="{golden:bookDetails.read}" aria-hidden="true" ></i>  <p class="fs-8"> Reading </p></a>
+                            <a href="javascript:void(0)" @click="addToreading"><i class="fa fa-book px-3 " :class="{golden:bookDetails.reading}" aria-hidden="true" ></i>  <p class="fs-8"> Reading </p></a>
                         </div>
                         <div class="col-5">
-                            <a href="javascript:void(0)" @click="addToread"><i class="fa fa-book px-4 " :class="{golden:bookDetails.read}" aria-hidden="true"></i> <p class="fs-8"> Want to read </p></a>
+                            <a href="javascript:void(0)" @click="addTowantread"><i class="fa fa-book px-4 " :class="{golden:bookDetails.wantread}" aria-hidden="true"></i> <p class="fs-8"> Want to read </p></a>
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
 
 
 <script>
-
+import axios from "axios"
 export default {
 
 components:{
@@ -46,33 +46,63 @@ components:{
 data(){
     return{
         
-        bookid:this.$route.params.id,
-        booksData:"",
+      
+        bookDetails:"",
         
     
     }
 },
 computed:{
-     bookDetails()
-    {
+    //  bookDetails()
+    // {
         
-        console.log("deatils" ,this.$store.state.bookdata)
-        var data=this.$store.state.bookdata.find(book => book.id == this.bookid);
-        console.log(data)
-        return data;
-    }
+    //     console.log("deatils" ,this.$store.state.bookdata)
+    //     var data=this.$store.state.bookdata.find(book => book.id == this.bookid);
+    //     console.log(data)
+    //     return data;
+    // }
 },
 methods:{
     addToread()
     {
-        if(this.read)
-            this.read=false
+        if(this.bookDetails.read)
+            this.bookDetails.read=false
         else
-            this.read=true
-        console.log("add to read " , this);
+            this.bookDetails.read=true
+        console.log("add to read " , this.bookDetails.read);
+    },
+    addTowantread()
+    {
+        if(this.bookDetails.wantread)
+            this.bookDetails.wantread=false
+        else
+            this.bookDetails.wantread=true
+        console.log("add to wantread " , this.bookDetails.wantread);
+    },
+    addToreading()
+    {
+        if(this.bookDetails.reading)
+            this.bookDetails.reading=false
+        else
+            this.bookDetails.reading=true
+        console.log("add to reading " , this.bookDetails.reading);
     },
    
 },
+created:async function(){
+    
+    console.log("axios description");
+        await axios.get(this.$store.state.BaseURLLocal+"get-book/"+this.$route.params.id+"/").then(resp => {
+        console.log("Resp",resp);
+        if(resp.status == 200)
+        {
+          this.bookDetails=resp.data;
+        }
+        
+        
+      
+        });
+}
 
 
 }
