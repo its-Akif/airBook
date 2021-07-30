@@ -1,7 +1,9 @@
 <template>
 <div class="pb-3">
     <router-link  :to="{name:'BookDescription' , params:{id:bookid}}">
-        <img :src=path alt="book image" class="book" >
+        <img :src=bookImgPath alt="book image" class="book" >
+        
+       
         
     </router-link>
 </div>    
@@ -13,12 +15,12 @@ export default{
     data()
     {
     },
-    computed:{
-        path()
-        {
-            return "http://127.0.0.1:8000"+this.bookImgPath;
-        }
-    }
+    // computed:{
+    //     path()
+    //     {
+    //         return "https://airbook-app.herokuapp.com"+this.bookImgPath;
+    //     }
+    // }
    
    
 }

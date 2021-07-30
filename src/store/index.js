@@ -5,7 +5,8 @@ import axios from 'axios'
 export default createStore({
   state:()=>( {
     bookdata:"",
-    BaseURL:"http://127.0.0.1:8000/"
+    BaseURL:"https://airbook-app.herokuapp.com/",
+    BaseURLLocal:"https://airbook-app.herokuapp.com/"
 
   }),
   mutations: {
@@ -21,9 +22,9 @@ export default createStore({
   actions: {
     async loadBooksOfCategory(context,category)
     {
-      console.log();
-        await axios.get(context.state.BaseURL+"list-books/"+category+"/").then(resp => {
-        console.log(resp);
+      console.log("Resp",category);
+        await axios.get(context.state.BaseURLLocal+"list-books/"+category+"/").then(resp => {
+        console.log("Resp",resp);
         if(resp.status == 200)
         {
           context.commit('loadBooksOfCategory',resp.data)
