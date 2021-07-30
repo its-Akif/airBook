@@ -34,7 +34,7 @@ export default {
   data()
   {
     return{
-      categories:"Social"      
+      categories:""      
     }
   },
   computed:{
