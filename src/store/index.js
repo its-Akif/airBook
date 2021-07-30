@@ -6,7 +6,7 @@ export default createStore({
   state:()=>( {
     bookdata:"",
     BaseURL:"https://airbook-app.herokuapp.com/",
-    BaseURLLocal:"http://127.0.0.1:8000/"
+    BaseURLLocal:"https://airbook-app.herokuapp.com/"
 
   }),
   mutations: {
