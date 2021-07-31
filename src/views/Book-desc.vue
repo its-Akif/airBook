@@ -17,10 +17,16 @@
                     </div>
                 </div>
                 <div class="col-md-8 ps-md-3 col-12">
+                    <div class="min-height-250-px">
                     <p class="fs-3 "> {{bookDetailsC.name}} </p>
                     <h2> Description</h2>
                     <p>{{bookDetailsC.description}}</p>
+                    </div>
+                     <div class="mt-5">
+                        <a :href=bookDetailsC.link class="getbookbylink px-4 py-2"><i class="fa fa-plus" aria-hidden="true"></i><span class="ms-2">Get Book</span></a>
+                    </div>
                 </div>
+           
 
             </div>
             
@@ -143,6 +149,10 @@ a{
 }
 .golden{
     color:#ffb733;
+}
+.getbookbylink{
+    border-radius: 10px;
+    border: 1px solid white;
 }
 
 
