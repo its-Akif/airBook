@@ -6,20 +6,20 @@
                     <img :src=bookDetails.pic alt="book image" class="book" >
                     <div class="row mt-3">
                         <div class="col-3 ">
-                        <a href="javascript:void(0)" @click="addToread"> <i class="fa fa-book  px-2 "  :class="{golden:bookDetails.read}" aria-hidden="true"></i> <p class="fs-8"> Read </p> </a> 
+                        <a href="javascript:void(0)" @click="addToread"> <i class="fa fa-book  px-2 "  :class="{golden:bookDetailsC.read}" aria-hidden="true"></i> <p class="fs-8"> Read {{bookDetailsC.read}}</p> </a> 
                         </div>
                         <div class="col-4">
-                            <a href="javascript:void(0)" @click="addToreading"><i class="fa fa-book px-3 " :class="{golden:bookDetails.reading}" aria-hidden="true" ></i>  <p class="fs-8"> Reading </p></a>
+                            <a href="javascript:void(0)" @click="addToreading"><i class="fa fa-book px-3 " :class="{golden:bookDetailsC.reading}" aria-hidden="true" ></i>  <p class="fs-8"> Reading </p></a>
                         </div>
                         <div class="col-5">
-                            <a href="javascript:void(0)" @click="addTowantread"><i class="fa fa-book px-4 " :class="{golden:bookDetails.wantread}" aria-hidden="true"></i> <p class="fs-8"> Want to read </p></a>
+                            <a href="javascript:void(0)" @click="addTowantread"><i class="fa fa-book px-4 " :class="{golden:bookDetailsC.wantread}" aria-hidden="true"></i> <p class="fs-8"> Want to read </p></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-8 ps-md-3 col-12">
-                    <p class="fs-3 "> {{bookDetails.name}} </p>
+                    <p class="fs-3 "> {{bookDetailsC.name}} </p>
                     <h2> Description</h2>
-                    <p>{{bookDetails.description}}</p>
+                    <p>{{bookDetailsC.description}}</p>
                 </div>
 
             </div>
@@ -43,15 +43,15 @@ export default {
 components:{
     
 },
-data(){
-    return{
+data:()=>({
+    
         
       
         bookDetails:"",
         
     
-    }
-},
+    
+}),
 computed:{
     //  bookDetails()
     // {
@@ -61,6 +61,10 @@ computed:{
     //     console.log(data)
     //     return data;
     // }
+    bookDetailsC()
+    {
+        return this.bookDetails;
+    }
 },
 methods:{
     addToread()
@@ -69,7 +73,11 @@ methods:{
             this.bookDetails.read=false
         else
             this.bookDetails.read=true
-        console.log("add to read " , this.bookDetails.read);
+        
+        
+        
+      
+      
     },
     addTowantread()
     {
@@ -92,16 +100,24 @@ methods:{
 created:async function(){
     
     console.log("axios description");
-        await axios.get(this.$store.state.BaseURLLocal+"get-book/"+this.$route.params.id+"/").then(resp => {
-        console.log("Resp",resp);
+    await axios.get(this.$store.state.BaseURLLocal+"get-book/"+this.$route.params.id+"/").then(resp => {
+    console.log("Resp",resp);
+    if(resp.status == 200)
+    {
+        this.bookDetails=resp.data;
+    }
+    });
+    await axios.get(this.$store.state.BaseURLLocal+"read-book/"+this.$route.params.id+"/").then(resp => {
+        console.log("Resp book read",resp);
         if(resp.status == 200)
         {
-          this.bookDetails=resp.data;
+        //   this.bookDetails=resp.data;
         }
         
         
       
         });
+        
 }
 
 
