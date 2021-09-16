@@ -10,6 +10,12 @@ export default createStore({
 
     token:"b7378021760d0a0ef34593ea4f8e6793386b3cee",
 
+    username:'',
+    email:'',
+    image:'',
+    isLogin:false,
+
+
   }),
   mutations: {
     loadBooksOfCategory:(state,books)=>

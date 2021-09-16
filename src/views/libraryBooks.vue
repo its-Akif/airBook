@@ -24,7 +24,7 @@
 <script>
 import Book from "../components/Book.vue"
 import GoBack from "../components/GoBack.vue"
-<GoBack />
+
 import axios from "axios"
 export default {
 

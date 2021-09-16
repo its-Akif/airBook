@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-md-3 col-8">
           <img :src="bookDetails.pic" alt="book image" class="book" />
-          <div class="row mt-3">
+          <div class="row mt-3" v-if="$store.state.isLogin">
             <div class="col-3">
               <a href="javascript:void(0)" @click="addToread">
                 <i
@@ -46,7 +46,7 @@
           </div>
           <div class="mt-5">
             <a :href="bookDetailsC.link" class="getbookbylink px-4 py-2"
-              ><i class="fa fa-plus" aria-hidden="true"></i
+              id="get-book"><i class="fa fa-plus" aria-hidden="true"></i
               ><span class="ms-2">Get Book</span></a
             >
           </div>
@@ -255,5 +255,8 @@ a {
 .getbookbylink {
   border-radius: 10px;
   border: 1px solid white;
+}
+#get-book:hover{
+  background-color:#494e44;
 }
 </style>

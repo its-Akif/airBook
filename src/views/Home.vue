@@ -2,7 +2,7 @@
   <div class="main pt-3">
     <div class="main-content">
       <h1 style="color: white">Recomendations</h1>
-      {{ fingerprint }}
+      <!-- {{ fingerprint }} -->
       <div>
         <category-option
           v-for="category in categories"

@@ -1,12 +1,12 @@
 <template>
  
   <div class="main container-fluid pt-3 cat-opt">
-    <!-- <GoBack /> -->
+   
     <div class="main-content">
       <h1 style="color: white">Librarry</h1>
-      <!-- <h1 style="color:grey !important;"> You Need to login First </h1> -->
       
-      <div class="row pt-5">
+      
+      <div class="row pt-5" v-if="$store.state.isLogin" >
         <router-link :to="{name:'LibraryBooks',params:{type:'read'}}">
         <div class="col-12 py-2 mb-3 opt-row">
           <span>Read</span>
@@ -36,7 +36,7 @@
         </div>
         </router-link>
       </div>
-    
+    <h1 style="color:grey !important;" v-else> You Need to login First !! </h1>
     </div>
   </div>
 </template>

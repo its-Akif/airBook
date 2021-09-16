@@ -4,8 +4,8 @@
       <h1 style="color:white;">Search</h1>
       <div class="row w-90 d-flex justify-content-center">
           <div class="col-12 pt-5 d-flex">
-            <input type="text" class="search-form ps-4 fs-4" placeholder="Search Book ...." v-model="searchedValue">
-            <input type="button" value="Search" class="btn btn-lg btn-secondary my-3 ms-3" @click="search">
+            <input type="text" class="search-form ps-4 fs-4" placeholder="Search Book ...." v-model="searchedValue" @input="search">
+            <!-- <input type="button" value="Search" class="btn btn-lg btn-secondary my-3 ms-3" @click="search"> -->
           </div>
          
       </div>
