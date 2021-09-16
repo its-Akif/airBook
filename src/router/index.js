@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
+import store from "../store/index.js"
 
 const routes = [
   {
@@ -33,6 +34,14 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Login.vue"),
+      beforeEnter: (to, from, next) => {
+        if(store.state.isLogin){
+          next()
+        }
+        else{
+          next({name:"Home"})
+        }
+      }
   },
   {
     path: "/books/:category",
@@ -60,7 +69,25 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "Book Description" */ "../views/libraryBooks.vue"),
+    beforeEnter: (to, from, next) => {
+      if(store.state.isLogin){
+        next()
+      }
+      else{
+        next({name:"Home"})
+      }
+    }
   },
+  {
+    path:"/:pathMatch(.*)*",
+    name:"404",
+    component: () =>
+      import(/* webpackChunkName: "Book Description" */ "../views/Home.vue"),
+  },
+  // beforeEach((to, from, next) => {
+  //   if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
+  //   else next()
+  // })
 ];
 
 const router = createRouter({
