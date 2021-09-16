@@ -6,7 +6,9 @@ export default createStore({
   state:()=>( {
     bookdata:"",
     BaseURL:"https://airbook-app.herokuapp.com/",
-    BaseURLLocal:"https://airbook-app.herokuapp.com/"
+    BaseURLLocal:"https://airbook-app.herokuapp.com/",
+
+    token:"b7378021760d0a0ef34593ea4f8e6793386b3cee",
 
   }),
   mutations: {
@@ -17,8 +19,19 @@ export default createStore({
       console.log("mutate",state.bookdata);
       
 
+    },
+
+  showLibrary:(state,library)=>
+    {
+      console.log("mutate show library", library);
+      // state.bookdata=books;
+      // console.log("mutate",state.bookdata);
+      return library;
+      
+
     }
   },
+
   actions: {
     async loadBooksOfCategory(context,category)
     {
@@ -35,9 +48,16 @@ export default createStore({
         });
         
     },
-    async getCategeory()
+    async showLibrary(context,library)
     {
-      
+      console.log(library)
+      await axios.get(this.$store.state.BaseURLLocal+"show-library/",{ 'headers': { 'Authorization': "Token"+" "+context.state.token} }).then((response)=>{
+        if (response.status === 200)
+        {
+          console.log(response.data)  
+          context.commit("showLibrary",response.data)
+        }
+    })
       
     }
   },

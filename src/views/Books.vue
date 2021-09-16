@@ -1,5 +1,6 @@
 <template>
     <div class="main pt-3">
+        <GoBack />
         <h1>Books</h1>
         <div class="d-flex flex-wrap">
             <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="book in booksData" :key="book.id" @bookDetails="getBookDetails">
@@ -13,11 +14,13 @@
 
 <script>
 import Book from "../components/Book.vue"
+import GoBack from "../components/GoBack.vue"
 import axios from "axios"
 export default {
 
 components:{
     Book,
+    GoBack,
 },
 data()
 {
@@ -39,7 +42,7 @@ methods:{
 },
 created:async function(){
         console.log("axios1");
-        await axios.get(this.$store.state.BaseURLLocal+"list-books/"+this.$route.params.category+"/").then(resp => {
+        await axios.get(this.$store.state.BaseURLLocal+"category-list-books/"+this.$route.params.category+"/").then(resp => {
         console.log("Resp",resp);
         if(resp.status == 200)
         {

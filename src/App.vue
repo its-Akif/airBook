@@ -1,17 +1,35 @@
 <template>
+
   <div id="nav">
     <SideNav />
+    
   </div>
   <router-view />
+  
 </template>
 
 <script>
 
 import SideNav from "./components/Side-nav.vue"
+import getBrowserFingerprint from 'get-browser-fingerprint';
 
 export default{
   components:{
     SideNav,
+  },
+  data(){
+    // return {
+    //   fingerprint:''
+    // }
+  },
+  computed:{
+     fingerprint()
+    {
+      const print=getBrowserFingerprint();
+      console.log("print",print)
+      return print;
+    }
+    
   }
 }
   

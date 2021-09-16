@@ -1,25 +1,56 @@
 <template>
   <div class="main container-fluid pt-3">
+    <!-- <GoBack /> -->
     <div class="main-content">
-    <h1 style="color:white;">Login</h1>
+      <h1 style="color: white">Login</h1>
     </div>
-    <h1 style="color:grey;"> Will be added Soon Google Auth !!! </h1>
-    <div class="row mt-5 " >
-      <div class=" col-12 ">
-      <img src="https://ernturkey.com/wp-content/uploads/2017/10/default-user-image.png" class="rounded float-start" height="100px" width="100px">
+    <h1 style="color: grey">Will be added Soon Google Auth !!!</h1>
+    <div class="row mt-5">
+      <div class="col-12">
+        <img
+          src="https://ernturkey.com/wp-content/uploads/2017/10/default-user-image.png"
+          class="rounded float-start"
+          height="100px"
+          width="100px"
+        />
       </div>
-      <div class="col-4 ">
-        <input type="text" value="asquaren@domain.com"  class="form-control mt-3" readonly>
+      <div class="col-4">
+        <input
+          type="text"
+          value="asquaren@domain.com"
+          class="form-control mt-3"
+          readonly
+        />
       </div>
     </div>
-  
   </div>
 </template>
+<script>
+import axios from "axios";
+// import GoBack from "../components/GoBack.vue"
+
+export default {
+  components:{
+    // GoBack,
+  },
+  data() {
+    return {
+      // link:"http://airbook-app.herokuapp.com/accounts/google/login/?process=login/",
+    };
+  },
+
+
+  created: async function() {
+    const resp1 = await axios.get(
+      this.$store.state.BaseURLLocal + "check-user-status/"
+    );
+    console.log("user Status", resp1);
+  },
+};
+</script>
 
 <style scoped>
-.main{
-  padding-left:350px;
-  
+.main {
+  padding-left: 350px;
 }
-
 </style>
