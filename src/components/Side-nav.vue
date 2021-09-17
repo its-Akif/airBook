@@ -28,18 +28,18 @@
         </router-link>
          
         <!-- <a href="http://airbook-app.herokuapp.com/accounts/google/login/?process=login/" class="col-10"> -->
-          <a href="javascript:void(0)" class="col-10"  @click="logout" v-if="$store.getters.isLogin">
+          <router-link  class="col-10" :to="{name:'Home'}"  @click="logout" v-if="$store.getters.isLogin">
             <div class="py-3 ">
               <i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp;Logout
               <!-- <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin> -->
             </div>
-            </a>
-          <a href="javascript:void(0)" class="col-10" v-else @click="login">
+            </router-link >
+          <router-link :to="{name:'Login'}" class="col-10" v-else @click="login">
             <div class="py-3 ">
               <i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Login
               <!-- <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin> -->
             </div>
-            </a>
+            </router-link >
 
             
           
@@ -133,7 +133,7 @@ export default {
                 this.$store.state.username="";
                 this.$store.state.email="";
                 this.$store.state.image="";
-                this.$router.push({name:"Home"})
+                // this.$router.push({name:"Home"})
               }
 
               // const instance= await this.$gAuth.instance();
