@@ -21,14 +21,14 @@
             <i class="fa fa-search" aria-hidden="true"></i> &nbsp;Search
           </div>
         </router-link>
-         <router-link :to="{ name: 'Login' }" v-if="$store.state.isLogin" class="col-10">
+         <router-link :to="{ name: 'Login' }" v-if="$store.getters.isLogin" class="col-10">
           <div class="py-3">
             <i class="fa fa-user" aria-hidden="true"></i> &nbsp;Profile
           </div>
         </router-link>
          
         <!-- <a href="http://airbook-app.herokuapp.com/accounts/google/login/?process=login/" class="col-10"> -->
-          <a href="javascript:void(0)" class="col-10"  @click="logout" v-if="$store.state.isLogin">
+          <a href="javascript:void(0)" class="col-10"  @click="logout" v-if="$store.getters.isLogin">
             <div class="py-3 ">
               <i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp;Logout
               <!-- <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin> -->
@@ -50,6 +50,7 @@
   </div>
 </template>
 <script>
+import axios from "axios"
 // import GoogleLogin from 'vue-google-login';
 export default {
 
@@ -78,10 +79,33 @@ export default {
               const googleUser= await this.$gAuth.signIn();
               // const instance= await this.$gAuth.instance();
             //  console.log(this.gapi.auth2.BasicProfile())
-              this.$store.state.image=googleUser.getBasicProfile().getImageUrl();
-              this.$store.state.email=googleUser.getBasicProfile().getEmail();
-              this.$store.state.username=googleUser.getBasicProfile().getName();
-              this.$store.state.isLogin=true;
+
+            //Session Save 
+              // this.$store.state.image=googleUser.getBasicProfile().getImageUrl();
+              // this.$store.state.email=googleUser.getBasicProfile().getEmail();
+              // this.$store.state.username=googleUser.getBasicProfile().getName();
+
+              localStorage.setItem("email",googleUser.getBasicProfile().getEmail())
+              localStorage.setItem("image",googleUser.getBasicProfile().getImageUrl())
+              localStorage.setItem("username",googleUser.getBasicProfile().getName())
+             
+              localStorage.setItem("isLogin",true)
+              this.$store.state.image=localStorage.getItem("image");
+              this.$store.state.email=localStorage.getItem("email");
+              this.$store.state.username=localStorage.getItem("username");
+               this.$store.state.isLogin=true;
+              
+
+
+              
+                const payload={
+                  "email":localStorage.getItem('email')
+                }
+              await axios.post(this.$store.state.BaseURLLocal+"generate-token/",payload).then(response=>{
+                 console.log("token" , response.data.token);
+                //  this.$store.state.token=response.data.token;
+                  localStorage.setItem("token",response.data.token)
+               }); 
                this.$router.push({name:"Login"})
               // console.log("Auth",googleUser.getAuthResponse())
               // console.log("Auth",this.$gAuth.GoogleAuth.currentUser.get().getAuthResponse())
@@ -89,7 +113,7 @@ export default {
           }
           catch(error){
             console.log(error)
-            alert("Something Went Wrong !!")
+            // alert("Something Went Wrong !!")
           }
         },
         async logout(){
@@ -99,6 +123,12 @@ export default {
               
               if(resp)
               {
+                 localStorage.setItem("isLogin",false)
+                 
+              localStorage.removeItem("email")
+              localStorage.removeItem("image")
+              localStorage.removeItem("username")
+              localStorage.removeItem("token")
                 this.$store.state.isLogin=false;
                 this.$store.state.username="";
                 this.$store.state.email="";
@@ -118,9 +148,13 @@ export default {
           }
           catch(error){
             console.log(error)
-            alert("Something Went Wrong !!")
+            // alert("Something Went Wrong !!")
           }
         }
+    },
+    created: function(){
+      console.log("Created NAc",this.$store.getters.isLogin);
+      
     }
 };
 </script>

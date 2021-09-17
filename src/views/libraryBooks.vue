@@ -51,7 +51,7 @@ methods:{
 
 },
 created:async function(){
-        console.log("created library books");
+        console.log("created library books",localStorage.getItem("isLogin"));
         // await axios.get(this.$store.state.BaseURLLocal+"category-list-books/"+this.$route.params.category+"/").then(resp => {
         // console.log("Resp",resp);
         // if(resp.status == 200)

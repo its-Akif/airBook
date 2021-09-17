@@ -4,19 +4,36 @@ import axios from 'axios'
 
 export default createStore({
   state:()=>( {
+    
     bookdata:"",
     BaseURL:"https://airbook-app.herokuapp.com/",
     BaseURLLocal:"https://airbook-app.herokuapp.com/",
 
-    token:"b7378021760d0a0ef34593ea4f8e6793386b3cee",
+    token:localStorage.getItem("token"),
 
-    username:'',
-    email:'',
-    image:'',
-    isLogin:false,
+    username:localStorage.getItem("username"),
+    email:localStorage.getItem("email"),
+    image:localStorage.getItem('image'),
+    isLogin:localStorage.getItem('isLogin'),
 
 
   }),
+  getters: {
+    isLogin: state=>{
+      console.log("Set Login Called",localStorage.getItem('isLogin'))
+      if(localStorage.getItem('isLogin') === null || localStorage.getItem('isLogin') == "false" )
+      {
+        state.isLogin=false
+        return state.isLogin
+      }
+      else{
+        state.isLogin=true
+        return state.isLogin
+
+      }
+      
+    }
+  },
   mutations: {
     loadBooksOfCategory:(state,books)=>
     {
@@ -35,7 +52,8 @@ export default createStore({
       return library;
       
 
-    }
+    },
+
   },
 
   actions: {

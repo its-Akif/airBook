@@ -3,7 +3,7 @@
   <div class="main container-fluid pt-3 cat-opt">
    
     <div class="main-content">
-      <h1 style="color: white">Librarry</h1>
+      <h1 style="color: white">Library</h1>
       
       
       <div class="row pt-5" v-if="$store.state.isLogin" >
