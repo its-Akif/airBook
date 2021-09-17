@@ -28,7 +28,7 @@
         </router-link>
          
         <!-- <a href="http://airbook-app.herokuapp.com/accounts/google/login/?process=login/" class="col-10"> -->
-          <router-link  class="col-10" :to="{name:'Home'}"  @click="logout" v-if="$store.getters.isLogin">
+          <router-link  class="col-10" :to="{name:'Logout'}" @click="logout" v-if="$store.getters.isLogin">
             <div class="py-3 ">
               <i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp;Logout
               <!-- <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin> -->

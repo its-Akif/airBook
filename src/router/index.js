@@ -62,6 +62,15 @@ const routes = [
       import(/* webpackChunkName: "Book Description" */ "../views/Book-desc.vue"),
   },
   {
+    path: "/",
+    name: "Logout",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "Book Description" */ "../views/Home.vue"),
+  },
+  {
     path: "/my-books/:type",
     name: "LibraryBooks",
     // route level code-splitting
