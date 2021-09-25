@@ -117,39 +117,48 @@ export default {
           }
         },
         async logout(){
-          try{
-              const resp= await this.$gAuth.signOut();
-              console.log(resp);
-              
-              if(resp)
-              {
-                 localStorage.setItem("isLogin",false)
-                 
-              localStorage.removeItem("email")
-              localStorage.removeItem("image")
-              localStorage.removeItem("username")
-              localStorage.removeItem("token")
-                this.$store.state.isLogin=false;
-                this.$store.state.username="";
-                this.$store.state.email="";
-                this.$store.state.image="";
-                // this.$router.push({name:"Home"})
-              }
+          try {
+        const payload = {
+          email: localStorage.getItem("email"),
+        };
 
-              // const instance= await this.$gAuth.instance();
-            //  console.log(this.gapi.auth2.BasicProfile())
-              // this.$store.state.image=googleUser.getBasicProfile().getImageUrl();
-              // this.$store.state.email=googleUser.getBasicProfile().getEmail();
-              // this.$store.state.username=googleUser.getBasicProfile().getName();
-              // this.$store.state.isLogin=false;
-              // console.log("Auth",googleUser.getAuthResponse())
-              // console.log("Auth",this.$gAuth.GoogleAuth.currentUser.get().getAuthResponse())
-              // console.log(this.$gAuth.getAuthCode())
-          }
-          catch(error){
-            console.log(error)
-            // alert("Something Went Wrong !!")
-          }
+        await axios
+          .post(this.$store.state.BaseURLLocal + "revoke-token/", payload)
+          .then((response) => {
+            console.log("logout", response);
+          });
+        // console.log(resp);
+        const resp1 = await this.$gAuth.signOut();
+
+        console.log(resp1);
+        if (resp1) {
+          localStorage.setItem("isLogin", false);
+
+          localStorage.removeItem("email");
+          localStorage.removeItem("image");
+          localStorage.removeItem("username");
+          localStorage.removeItem("token");
+          this.$store.state.isLogin = false;
+          this.$store.state.username = "";
+          this.$store.state.email = "";
+          this.$store.state.image = "";
+          this.$store.state.token = "";
+          // this.$router.push({name:"Home"})
+        }
+
+        // const instance= await this.$gAuth.instance();
+        //  console.log(this.gapi.auth2.BasicProfile())
+        // this.$store.state.image=googleUser.getBasicProfile().getImageUrl();
+        // this.$store.state.email=googleUser.getBasicProfile().getEmail();
+        // this.$store.state.username=googleUser.getBasicProfile().getName();
+        // this.$store.state.isLogin=false;
+        // console.log("Auth",googleUser.getAuthResponse())
+        // console.log("Auth",this.$gAuth.GoogleAuth.currentUser.get().getAuthResponse())
+        // console.log(this.$gAuth.getAuthCode())
+      } catch (error) {
+        console.log(error);
+        // alert("Something Went Wrong !!")
+      }
         }
     },
     created: function(){

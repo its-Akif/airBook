@@ -1,6 +1,6 @@
 <template>
   <div class="main pt-5">
-      <GoBack />
+    <GoBack />
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-3 col-8">
@@ -45,8 +45,11 @@
             <p>{{ bookDetailsC.description }}</p>
           </div>
           <div class="mt-5">
-            <a :href="bookDetailsC.link" class="getbookbylink px-4 py-2"
-              id="get-book"><i class="fa fa-plus" aria-hidden="true"></i
+            <a
+              :href="bookDetailsC.link"
+              class="getbookbylink px-4 py-2"
+              id="get-book"
+              ><i class="fa fa-plus" aria-hidden="true"></i
               ><span class="ms-2">Get Book</span></a
             >
           </div>
@@ -58,9 +61,9 @@
 
 <script>
 import axios from "axios";
-import GoBack from "../components/GoBack.vue"
+import GoBack from "../components/GoBack.vue";
 export default {
-  components:{
+  components: {
     GoBack,
   },
   data: () => ({
@@ -85,29 +88,29 @@ export default {
       // if(this.bookDetails.read)
       // {
       // this.bookDetails.read=false
-    //   await axios
-    //     .get(this.$store.state.BaseURLLocal + "check-user-status/")
-    //     .then((response) => {
-    //       console.log("user", response.data);
-    //     });
+      //   await axios
+      //     .get(this.$store.state.BaseURLLocal + "check-user-status/")
+      //     .then((response) => {
+      //       console.log("user", response.data);
+      //     });
       // console.log("user Status", resp1)
-    //   await axios
-    //     .get(this.$store.state.BaseURLLocal + "generate-token/")
-    //     .then((response) => {
-    //       console.log("token", response.data);
-    //     });
-    //   await axios
-    //     .get(this.$store.state.BaseURLLocal + "show-library/", {
-    //       headers: {
-    //         Authorization:
-    //           "Token" + " b7378021760d0a0ef34593ea4f8e6793386b3cee",
-    //       },
-    //     })
-    //     .then((response) => {
-    //       if (response.status === 200) {
-    //         console.log(response.data);
-    //       }
-    //     });
+      //   await axios
+      //     .get(this.$store.state.BaseURLLocal + "generate-token/")
+      //     .then((response) => {
+      //       console.log("token", response.data);
+      //     });
+      //   await axios
+      //     .get(this.$store.state.BaseURLLocal + "show-library/", {
+      //       headers: {
+      //         Authorization:
+      //           "Token" + " b7378021760d0a0ef34593ea4f8e6793386b3cee",
+      //       },
+      //     })
+      //     .then((response) => {
+      //       if (response.status === 200) {
+      //         console.log(response.data);
+      //       }
+      //     });
 
       await axios
         .get(
@@ -117,21 +120,19 @@ export default {
             "/",
           {
             headers: {
-              Authorization:
-                "Token" + " "+this.$store.state.token,
+              Authorization: "Token" + " " + localStorage.getItem("token"),
             },
           }
         )
         .then((response) => {
           if (response.status === 200) {
-            console.log("add to read",response.data);
-            this.bookDetails.read=response.data.read;
+            console.log("add to read", response.data);
+            this.bookDetails.read = response.data.read;
           }
         });
-     
     },
     async addTowantread() {
-         await axios
+      await axios
         .get(
           this.$store.state.BaseURLLocal +
             "want-read-book/" +
@@ -139,23 +140,22 @@ export default {
             "/",
           {
             headers: {
-              Authorization:
-                "Token" + " "+this.$store.state.token,
+              Authorization: "Token" + " " + localStorage.getItem("token"),
             },
           }
         )
         .then((response) => {
           if (response.status === 200) {
-            console.log("add to wnat read",response.data);
-            this.bookDetails.wantread=response.data.wantread;
+            console.log("add to wnat read", response.data);
+            this.bookDetails.wantread = response.data.wantread;
           }
         });
-    //   if (this.bookDetails.wantread) this.bookDetails.wantread = false;
-    //   else this.bookDetails.wantread = true;
-    //   console.log("add to wantread ", this.bookDetails.wantread);
+      //   if (this.bookDetails.wantread) this.bookDetails.wantread = false;
+      //   else this.bookDetails.wantread = true;
+      //   console.log("add to wantread ", this.bookDetails.wantread);
     },
     async addToreading() {
-         await axios
+      await axios
         .get(
           this.$store.state.BaseURLLocal +
             "reading-book/" +
@@ -163,22 +163,21 @@ export default {
             "/",
           {
             headers: {
-              Authorization:
-                "Token" + " "+this.$store.state.token,
+              Authorization: "Token" + " " + localStorage.getItem("token"),
             },
           }
         )
         .then((response) => {
           if (response.status === 200) {
-            console.log("add to read",response.data);
-            this.bookDetails.reading=response.data.reading;
+            console.log("add to read", response.data);
+            this.bookDetails.reading = response.data.reading;
           }
         });
-    //   if (this.bookDetails.reading) this.bookDetails.reading = false;
-    //   else this.bookDetails.reading = true;
-    //   console.log("add to reading ", this.bookDetails.reading);
+      //   if (this.bookDetails.reading) this.bookDetails.reading = false;
+      //   else this.bookDetails.reading = true;
+      //   console.log("add to reading ", this.bookDetails.reading);
     },
-    //when first come to this page after logi show initial 
+    //when first come to this page after logi show initial
     setbookstatus(libdata) {
       console.log("Library Data ", libdata);
       const read = libdata.read;
@@ -186,26 +185,26 @@ export default {
       const reading = libdata.reading;
       console.log(read, wanttoread, reading);
 
-      const readdata =read.find(e=>e.book_id == this.$route.params.id);
-      const wantdata =wanttoread.find(e=>e.book_id == this.$route.params.id);
-      const readingdata =reading.find(e=>e.book_id == this.$route.params.id);
-        console.log("data",readdata)
-        if(readdata)
-        {
-            this.bookDetails.read=true 
-        }
-        if(wantdata)
-        {
-            this.bookDetails.wantread=true 
-        }
-        if(readingdata)
-        {
-            this.bookDetails.reading=true 
-        }
-    }
+      const readdata = read.find((e) => e.book_id == this.$route.params.id);
+      const wantdata = wanttoread.find(
+        (e) => e.book_id == this.$route.params.id
+      );
+      const readingdata = reading.find(
+        (e) => e.book_id == this.$route.params.id
+      );
+      console.log("data", readdata);
+      if (readdata) {
+        this.bookDetails.read = true;
+      }
+      if (wantdata) {
+        this.bookDetails.wantread = true;
+      }
+      if (readingdata) {
+        this.bookDetails.reading = true;
+      }
+    },
   },
   created: async function () {
-
     console.log("axios description");
     await axios
       .get(
@@ -222,12 +221,14 @@ export default {
       });
     await axios
       .get(this.$store.state.BaseURLLocal + "show-library/", {
-        headers: { Authorization: "Token" + " " + this.$store.state.token },
+        headers: {
+          Authorization: "Token" + " " + localStorage.getItem("token"),
+        },
       })
       .then((response) => {
         if (response.status === 200) {
           console.log(response.data);
-         this.setbookstatus(response.data);
+          this.setbookstatus(response.data);
         }
       });
   },
@@ -256,7 +257,7 @@ a {
   border-radius: 10px;
   border: 1px solid white;
 }
-#get-book:hover{
-  background-color:#494e44;
+#get-book:hover {
+  background-color: #494e44;
 }
 </style>

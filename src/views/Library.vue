@@ -1,42 +1,43 @@
 <template>
- 
   <div class="main container-fluid pt-3 cat-opt">
-   
     <div class="main-content">
       <h1 style="color: white">Library</h1>
-      
-      
-      <div class="row pt-5" v-if="$store.state.isLogin" >
-        <router-link :to="{name:'LibraryBooks',params:{type:'read'}}">
-        <div class="col-12 py-2 mb-3 opt-row">
-          <span>Read</span>
-          <span class="float-end me-5">> {{ readbooks }}</span>
-          <hr />
-        </div>
+
+      <div class="row pt-5" v-if="$store.state.isLogin">
+        <router-link :to="{ name: 'LibraryBooks', params: { type: 'read' } }">
+          <div class="col-12 py-2 mb-3 opt-row">
+            <span>Read</span>
+            <span class="float-end me-5">> {{ readbooks }}</span>
+            <hr />
+          </div>
         </router-link>
 
-        <router-link :to="{name:'LibraryBooks',params:{type:'wantread'}}">
-        <div class="col-12 py-2 mb-3 opt-row">
-          <span>Want to read</span>
-          <span class="float-end me-5">> {{ wantread }}</span>
+        <router-link
+          :to="{ name: 'LibraryBooks', params: { type: 'wantread' } }"
+        >
+          <div class="col-12 py-2 mb-3 opt-row">
+            <span>Want to read</span>
+            <span class="float-end me-5">> {{ wantread }}</span>
 
-          <hr />
-        </div>
+            <hr />
+          </div>
         </router-link>
         <!-- <div class="col-12 py-2 mb-3 opt-row">
         <span>WishList</span>
         <hr />
       </div> -->
-      <router-link :to="{name:'LibraryBooks',params:{type:'reading'}}">
-        <div class="col-12 py-2 me-5 mb-3 opt-row">
-          <span>Reading</span>
-          <span class="float-end me-5">> {{ reading }}</span>
+        <router-link
+          :to="{ name: 'LibraryBooks', params: { type: 'reading' } }"
+        >
+          <div class="col-12 py-2 me-5 mb-3 opt-row">
+            <span>Reading</span>
+            <span class="float-end me-5">> {{ reading }}</span>
 
-          <hr />
-        </div>
+            <hr />
+          </div>
         </router-link>
       </div>
-    <h1 style="color:grey !important;" v-else> You Need to login First !! </h1>
+      <h1 style="color: grey !important" v-else>You Need to login First !!</h1>
     </div>
   </div>
 </template>
@@ -45,7 +46,7 @@
 import axios from "axios";
 // import GoBack from "../components/GoBack.vue"
 export default {
-  components:{
+  components: {
     // GoBack,
   },
   data() {
@@ -66,13 +67,14 @@ export default {
       this.wantread = wanttoread.length;
       this.reading = reading.length;
     },
-    
   },
 
   created: async function () {
     await axios
       .get(this.$store.state.BaseURLLocal + "show-library/", {
-        headers: { Authorization: "Token" + " " + this.$store.state.token },
+        headers: {
+          Authorization: "Token" + " " + localStorage.getItem("token"),
+        },
       })
       .then((response) => {
         if (response.status === 200) {
@@ -81,7 +83,6 @@ export default {
         }
       });
   },
-
 };
 </script>
 
@@ -94,13 +95,12 @@ export default {
    
     
 } */
-.cat-opt a{
-    text-decoration: none;
-  
-    color:white;
-}
-#go-back{
-  color:#198754;
-}
+.cat-opt a {
+  text-decoration: none;
 
+  color: white;
+}
+#go-back {
+  color: #198754;
+}
 </style>
